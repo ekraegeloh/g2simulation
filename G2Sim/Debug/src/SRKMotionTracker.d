@@ -1,5 +1,5 @@
 src/SRKMotionTracker.d: ../src/SRKMotionTracker.cpp \
- /home/work/Simulation/G2Sim/include/SRKMotionTracker.h \
+ /home/work/Simulation/G2/G2Sim/include/SRKMotionTracker.h \
  /opt/root6/include/TFile.h /opt/root6/include/TDirectoryFile.h \
  /opt/root6/include/TDirectory.h /opt/root6/include/TBuffer.h \
  /opt/root6/include/TObject.h /opt/root6/include/RConfigure.h \
@@ -54,7 +54,7 @@ src/SRKMotionTracker.d: ../src/SRKMotionTracker.cpp \
  /opt/root6/include/TArrayS.h /opt/root6/include/TArrayF.h \
  /opt/root6/include/Foption.h /opt/root6/include/Fit/FitExecutionPolicy.h \
  /opt/root6/include/TFitResultPtr.h \
- /home/work/Simulation/G2Sim/include/SRKMotionState.h \
+ /home/work/Simulation/G2/G2Sim/include/SRKMotionState.h \
  /opt/root6/include/TROOT.h /opt/root6/include/TMath.h \
  /opt/root6/include/TRandom.h /opt/root6/include/Math/TRandomEngine.h \
  /opt/root6/include/TPolyLine3D.h /opt/root6/include/TView3D.h \
@@ -68,7 +68,7 @@ src/SRKMotionTracker.d: ../src/SRKMotionTracker.cpp \
  /opt/root6/include/TPoint.h /opt/root6/include/TAttCanvas.h \
  /opt/root6/include/TCanvasImp.h
 
-/home/work/Simulation/G2Sim/include/SRKMotionTracker.h:
+/home/work/Simulation/G2/G2Sim/include/SRKMotionTracker.h:
 
 /opt/root6/include/TFile.h:
 
@@ -274,7 +274,7 @@ src/SRKMotionTracker.d: ../src/SRKMotionTracker.cpp \
 
 /opt/root6/include/TFitResultPtr.h:
 
-/home/work/Simulation/G2Sim/include/SRKMotionState.h:
+/home/work/Simulation/G2/G2Sim/include/SRKMotionState.h:
 
 /opt/root6/include/TROOT.h:
 

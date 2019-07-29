@@ -3,13 +3,13 @@
 #include <time.h>
 #include <iostream>
 
+#include "../include/SRKBField.h"
 #include "SRKInterpolatedField.h"
 #include "SRKDipoleField.h"
 #include "SRKUniformField.h"
 #include "SRKGradientField.h"
 #include "SRKQuadrupoleField.h"
 #include "SRKSextupoleField.h"
-#include "SRKBField.h"
 #include "SRKEField.h"
 
 using namespace std;

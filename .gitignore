@@ -1,2 +1,10 @@
 /org.eclipse.cdt.codan.core.prefs
 /org.eclipse.ltk.core.refactoring.prefs
+/G2Sim/examples
+/G2Sim/.fuse*
+/G2Sim/.settings
+/G2Sim/.project
+/G2Sim/.cproject
+/G2Sim/Debug/*.txt
+/G2Sim/Debug/.fuse*
+/G2Out/*

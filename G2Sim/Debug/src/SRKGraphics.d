@@ -1,5 +1,5 @@
 src/SRKGraphics.d: ../src/SRKGraphics.cpp \
- /home/work/Simulation/G2Sim/include/SRKGraphics.h \
+ /home/work/Simulation/G2/G2Sim/include/SRKGraphics.h \
  /opt/root6/include/TGraph.h /opt/root6/include/TNamed.h \
  /opt/root6/include/TObject.h /opt/root6/include/RConfigure.h \
  /opt/root6/include/Rtypes.h /opt/root6/include/RtypesCore.h \
@@ -56,7 +56,7 @@ src/SRKGraphics.d: ../src/SRKGraphics.cpp \
  /opt/root6/include/TF1AbsComposition.h /opt/root6/include/TMath.h \
  /opt/root6/include/Math/Types.h /opt/root6/include/Math/ParamFunctor.h
 
-/home/work/Simulation/G2Sim/include/SRKGraphics.h:
+/home/work/Simulation/G2/G2Sim/include/SRKGraphics.h:
 
 /opt/root6/include/TGraph.h:
 

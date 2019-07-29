@@ -1,5 +1,5 @@
 src/SRKSpinState.d: ../src/SRKSpinState.cpp \
- /home/work/Simulation/G2Sim/include/SRKSpinState.h \
+ /home/work/Simulation/G2/G2Sim/include/SRKSpinState.h \
  /opt/root6/include/TVector3.h /opt/root6/include/TError.h \
  /opt/root6/include/Rtypes.h /opt/root6/include/RtypesCore.h \
  /opt/root6/include/RConfig.h /opt/root6/include/RVersion.h \
@@ -22,7 +22,7 @@ src/SRKSpinState.d: ../src/SRKSpinState.cpp \
  /opt/root6/include/TMatrixFUtilsfwd.h /opt/root6/include/TMath.h \
  /opt/root6/include/TString.h
 
-/home/work/Simulation/G2Sim/include/SRKSpinState.h:
+/home/work/Simulation/G2/G2Sim/include/SRKSpinState.h:
 
 /opt/root6/include/TVector3.h:
 

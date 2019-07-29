@@ -1,6 +1,6 @@
 src/SRKEquationOfMotion.d: ../src/SRKEquationOfMotion.cpp \
- /home/work/Simulation/G2Sim/include/SRKEquationOfMotion.h \
- /home/work/Simulation/G2Sim/include/SRKODEState.h \
+ /home/work/Simulation/G2/G2Sim/include/SRKEquationOfMotion.h \
+ /home/work/Simulation/G2/G2Sim/include/SRKODEState.h \
  /opt/boost_1_58_0/boost/multiprecision/float128.hpp \
  /opt/boost_1_58_0/boost/config.hpp \
  /opt/boost_1_58_0/boost/config/user.hpp \
@@ -769,12 +769,12 @@ src/SRKEquationOfMotion.d: ../src/SRKEquationOfMotion.cpp \
  /opt/root6/include/TVectorDfwd.h /opt/root6/include/TMatrixTUtils.h \
  /opt/root6/include/TMatrixFfwd.h /opt/root6/include/TMatrixFUtils.h \
  /opt/root6/include/TMatrixFUtilsfwd.h /opt/root6/include/TMath.h \
- /home/work/Simulation/G2Sim/include/SRKMotionState.h \
+ /home/work/Simulation/G2/G2Sim/include/SRKMotionState.h \
  /opt/root6/include/TString.h \
- /home/work/Simulation/G2Sim/include/SRKSpinState.h \
- /home/work/Simulation/G2Sim/include/SRKGlobalField.h \
- /home/work/Simulation/G2Sim/include/SRKField.h \
- /home/work/Simulation/G2Sim/include/SRKROOTField.h \
+ /home/work/Simulation/G2/G2Sim/include/SRKSpinState.h \
+ /home/work/Simulation/G2/G2Sim/include/SRKGlobalField.h \
+ /home/work/Simulation/G2/G2Sim/include/SRKField.h \
+ /home/work/Simulation/G2/G2Sim/include/SRKROOTField.h \
  /opt/root6/include/TROOT.h /opt/root6/include/TDirectory.h \
  /opt/root6/include/TBuffer.h /opt/root6/include/TList.h \
  /opt/root6/include/TSeqCollection.h /opt/root6/include/TCollection.h \
@@ -801,9 +801,9 @@ src/SRKEquationOfMotion.d: ../src/SRKEquationOfMotion.cpp \
  /opt/root6/include/ESTLType.h /opt/root6/include/TTime.h \
  /opt/root6/include/ThreadLocalStorage.h
 
-/home/work/Simulation/G2Sim/include/SRKEquationOfMotion.h:
+/home/work/Simulation/G2/G2Sim/include/SRKEquationOfMotion.h:
 
-/home/work/Simulation/G2Sim/include/SRKODEState.h:
+/home/work/Simulation/G2/G2Sim/include/SRKODEState.h:
 
 /opt/boost_1_58_0/boost/multiprecision/float128.hpp:
 
@@ -2383,17 +2383,17 @@ src/SRKEquationOfMotion.d: ../src/SRKEquationOfMotion.cpp \
 
 /opt/root6/include/TMath.h:
 
-/home/work/Simulation/G2Sim/include/SRKMotionState.h:
+/home/work/Simulation/G2/G2Sim/include/SRKMotionState.h:
 
 /opt/root6/include/TString.h:
 
-/home/work/Simulation/G2Sim/include/SRKSpinState.h:
+/home/work/Simulation/G2/G2Sim/include/SRKSpinState.h:
 
-/home/work/Simulation/G2Sim/include/SRKGlobalField.h:
+/home/work/Simulation/G2/G2Sim/include/SRKGlobalField.h:
 
-/home/work/Simulation/G2Sim/include/SRKField.h:
+/home/work/Simulation/G2/G2Sim/include/SRKField.h:
 
-/home/work/Simulation/G2Sim/include/SRKROOTField.h:
+/home/work/Simulation/G2/G2Sim/include/SRKROOTField.h:
 
 /opt/root6/include/TROOT.h:
 
