@@ -1,25 +1,29 @@
-#ifndef SRKDipoleField_H
-#define SRKDipoleField_H 1
+#ifndef SRKDipoleField_HH
+#define SRKDipoleField_HH
+
+#include <TVector3.h>
 
 #include "SRKField.h"
+
 ////////////////////////////////////////////////////////////////
-/// SRKDipoleField
-/// Implements an SRKField which creates a point-like dipole field
-/// where the center is at fs.centerPos and it's magnitude is based on
-/// scalingValue.  It's direction is defined by fs.direction
+/// class SRKUniformField
+///
+/// A uniform electric/magnetic field in an arbitrary direction
 ///
 /// Author: Matthew Bales
 ///////////////////////////////////////////////////////////////
+
 class SRKDipoleField: public SRKField
 {
 public:
-
 	SRKDipoleField(SRKFieldSettings inpFS);
-	~SRKDipoleField(){};
-	void addFieldValue(const double globalPoint[4], double fieldValue[9]);
+
+	virtual ~SRKDipoleField();
+
+	void addFieldValue(const double localPoint[3], double fieldValue[9]);
 
 private:
-
+	double fieldComponents[3];
 };
 
 #endif

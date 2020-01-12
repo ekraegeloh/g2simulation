@@ -17,6 +17,6 @@ class SRKQuadrupoleField: public SRKField
 public:
 	SRKQuadrupoleField(SRKFieldSettings inpFS);
 	~SRKQuadrupoleField(){}
-	void addFieldValue(const double globalPoint[4], double fieldValue[9]);
+	void addFieldValue(const double localPoint[3], double fieldValue[9]);
 };
 #endif

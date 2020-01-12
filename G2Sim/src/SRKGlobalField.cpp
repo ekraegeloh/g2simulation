@@ -1,22 +1,23 @@
+#include <SRKDipoleField.h>
 #include "SRKGlobalField.h"
 
 #include <time.h>
 #include <iostream>
 
-#include "../include/SRKBField.h"
+//#include "SRKBField.h"
 #include "SRKInterpolatedField.h"
-#include "SRKDipoleField.h"
-#include "SRKUniformField.h"
 #include "SRKGradientField.h"
 #include "SRKQuadrupoleField.h"
 #include "SRKSextupoleField.h"
-#include "SRKEField.h"
+#include "SRKMultipoleField.h"
+//#include "SRKEField.h"
 
 using namespace std;
 
 SRKGlobalField::SRKGlobalField()
 {
 	currentFieldSettingsToModify = -1;
+	Econt = true;
 }
 
 SRKGlobalField::~SRKGlobalField()
@@ -40,7 +41,7 @@ void SRKGlobalField::addField(SRKField* f)
 }
 
 ///template <class floatlike1, class floatlike2>
-void SRKGlobalField::getFieldValue(const double* point, double* outField) const
+void SRKGlobalField::getFieldValue(const double* point, double* outField) const // pointer is basically equal to array; point is actually array, not memory address; think about pass by ref, using std::array
 {
 	for (unsigned int i = 0; i < 9; ++i)
 	{
@@ -48,11 +49,11 @@ void SRKGlobalField::getFieldValue(const double* point, double* outField) const
 		outField[i]=0;
 
 	}
-
+	//point is local point: [2] is azimuth angle
 	for (unsigned int i = 0; i < theFields.size(); ++i)
 	{
 
-		theFields[i]->addFieldValue(point, outField);
+		theFields[i]->addFieldValue(point, outField); //check use of pointer here??
 
 	}
 }
@@ -91,7 +92,7 @@ void SRKGlobalField::constructFields()
 {
 	for (unsigned int i = 0; i < fieldSettingsToLoad.size(); i++)
 	{
-		if(fieldSettingsToLoad[i].scalingValue != 0) //Only load fields if their scaling values are not zero
+		if(fieldSettingsToLoad[i].scalingValue != 0 || fieldSettingsToLoad[i].coefficients.size() != 0 ) //Only load fields if their scaling values are not zero
 		{
 			if(fieldSettingsToLoad[i].fieldClass == FIELDCLASS_INTERPOLATION)
 			{
@@ -100,10 +101,6 @@ void SRKGlobalField::constructFields()
 			else if(fieldSettingsToLoad[i].fieldClass == FIELDCLASS_DIPOLE)
 			{
 				addField(new SRKDipoleField(fieldSettingsToLoad[i]));
-			}
-			else if(fieldSettingsToLoad[i].fieldClass == FIELDCLASS_UNIFORM)
-			{
-				addField(new SRKUniformField(fieldSettingsToLoad[i]));
 			}
 			else if(fieldSettingsToLoad[i].fieldClass == FIELDCLASS_GRADIENT)
 			{
@@ -117,13 +114,17 @@ void SRKGlobalField::constructFields()
 			{
 				addField(new SRKSextupoleField(fieldSettingsToLoad[i]));
 			}
-			else if(fieldSettingsToLoad[i].fieldClass == FIELDCLASS_B)
+//			else if(fieldSettingsToLoad[i].fieldClass == FIELDCLASS_B)
+//			{
+//				addField(new SRKBField(fieldSettingsToLoad[i]));
+//			}
+//			else if(fieldSettingsToLoad[i].fieldClass == FIELDCLASS_E)
+//			{
+//				addField(new SRKEField(fieldSettingsToLoad[i]));
+//			}
+			else if(fieldSettingsToLoad[i].fieldClass == FIELDCLASS_MULTIPOLE)
 			{
-				addField(new SRKBField(fieldSettingsToLoad[i]));
-			}
-			else if(fieldSettingsToLoad[i].fieldClass == FIELDCLASS_E)
-			{
-				addField(new SRKEField(fieldSettingsToLoad[i]));
+				addField(new SRKMultipoleField(fieldSettingsToLoad[i]));
 			}
 		}
 

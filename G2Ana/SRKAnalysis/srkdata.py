@@ -16,14 +16,14 @@ __email__ = "matthew.bales@gmail.com"
 gRandom.SetSeed(0)
 
 
-def default_srk_settings(runtype="g2full"):
+def default_srk_settings(runtype="g2"):
 	"""Returns default dictionary for SRK settings.
 
 			These correspond to SRK macro commands in the form: set<key> <value>"""
 	settings = {}
-	if runtype == "g2full":
+	if runtype == "g2":
 		settings = {
-			'TrackFilePath': '!dynamic',
+#			'TrackFilePath': '!dynamic',
 			'TimeLimit': 10e-06,
 			'RecordPeriodicSteps': 1,
 			'PeriodicStopTime': 5e-10,
@@ -31,39 +31,41 @@ def default_srk_settings(runtype="g2full"):
 			'ConstStepper': 1,
 			'InitialStepSize': 1e-10,
 			'ManualTracking': 1,
-			'Use2D': 0,
-			'ChamberRotation': '0 0 0',
-			'ChamberRadius': 1e10,
-			'ChamberHeight': 1e10,
+#			'Use2D': 0,
+#			'ChamberRotation': '0 0 0',
+#			'ChamberRadius': 1e10,
+#			'ChamberHeight': 1e10,
+			'RingRadius': 7.112,
+			'StorageDiameter': 0.09,
 			'RandomSeed': 0,
-			'DefaultPos': '0 0 0',
-			'DefaultVel': '0 0 0',
+			'InitialPos': '0 0 0',
+			'InitialVel': '0 0 0',
 			'Mass': 1.883531594e-28,
 			'GyromagneticRatio': 0.00116592091,
-			'DefaultMag': '0 0 1',
+			'InitialMag': '0 0 1',
 			'EPSAbs': 1e-07,
 			'EPSRel': 1e-07,
-			'BFieldStrength': -1.4513,
+#			'BFieldStrength': -1.4513,
 			'B0FieldStrength': 0.,
 			'B0FieldDirection': '0 1 0',
-			'EFieldStrength': 4.8e6,
-			'E0FieldStrength': 0.,
-			'E0FieldDirection': '0 1 0',
-			'BGradFieldStrength': 0.,
+#			'EFieldStrength': 4.8e6,
+#			'E0FieldStrength': 0.,
+#			'E0FieldDirection': '0 1 0',
+#			'BGradFieldStrength': 0.,
 #			'BGradFieldDirection': '0 1 0',
-			'EGradFieldStrength': 0.,
+#			'EGradFieldStrength': 0.,
 #			'EGradFieldDirection': '0 1 0',
 			'BQuadFieldStrength': 0.,#-0.81838,
-			'BQuadFieldAxis': '0 0 -1',
+#			'BQuadFieldAxis': '0 0 -1',
 			'EQuadFieldStrength': 0.,
-			'EQuadFieldAxis': '0 0 -1',
-			'EQuadFieldDirection': '1 0 0',
-			'BSextFieldStrength': 0.,
-			'BSextFieldAxis': '0 0 -1',
-			'BSextFieldDirection': '1 0 0',
-			'ESextFieldStrength': 0.,
-			'ESextFieldAxis': '0 0 -1',
-			'ESextFieldDirection': '1 0 0',
+#			'EQuadFieldAxis': '0 0 -1',
+#			'EQuadFieldDirection': '1 0 0',
+#			'BSextFieldStrength': 0.,
+#			'BSextFieldAxis': '0 0 -1',
+#			'BSextFieldDirection': '1 0 0',
+#			'ESextFieldStrength': 0.,
+#			'ESextFieldAxis': '0 0 -1',
+#			'ESextFieldDirection': '1 0 0',
 		}
 	else:
 		settings = {
@@ -183,10 +185,10 @@ def default_delta_omega_stats():
 	}
 
 
-def default_run_settings(runtype="g2full"):
+def default_run_settings(runtype="g2"):
 	"""Returns default dictionary for summary of applicable information attributed to one run of SRK"""
 	settings = {}
-	if runtype == "g2full":
+	if runtype == "g2":
 		settings = {
 			'Title': 'DefaultTitle',
 			'SRKVersion': 'lab',
@@ -232,7 +234,11 @@ def write_macro_commands_to_file(macro_file, run_id, srk_settings, run_settings)
 	macro_file.write('setRunID RID' + str(run_id) + '\n')
 
 	for setting in srk_settings.keys():
-		macro_file.write('set' + setting + ' ' + str(srk_settings[setting]) + '\n')
+		if type(srk_settings[setting]) is list:
+			for el in srk_settings[setting]:
+				macro_file.write('set' + setting + ' ' + str(el) + '\n')
+		else:	
+			macro_file.write('set' + setting + ' ' + str(srk_settings[setting]) + '\n')
 
 	if run_settings['RunType'] == 'deltaOmega':
 		macro_file.write('trackSpinsDeltaOmega ' + str(run_settings['NumTracksPer']))
@@ -337,9 +343,15 @@ def add_to_database(values_dict):
 	value_tuple = ()
 	question_mark_string = ''
 	for i in values_dict.keys():
-		if i == "DefaultPos": column_string += "InitialPos" + ','
-		elif i == "DefaultVel": column_string += "InitialVel" + ','
-		elif i == "DefaultMag": column_string += "InitialMag" + ','
+		if i == "RingRadius": continue#for now
+		elif i == "StorageDiameter": continue#for now
+		elif i == "BMultiFieldStrength": continue
+		elif i == "BMultiOrder": continue
+		elif i == "BMultiSkew": continue
+		elif i == "EMultiFieldStrength": continue
+		elif i == "EMultiOrder": continue
+		elif i == "RecordE": continue
+		elif i == "EContinuous": continue
 		else:
 			column_string += i + ','
 		question_mark_string += '?,'
@@ -350,7 +362,10 @@ def add_to_database(values_dict):
 	# Insert into table
 	insert_string = 'INSERT INTO ' + srkglobal.database_runlog_table_name + '(' + column_string \
 					+ ') Values (' + question_mark_string + ')'
-	db_cursor.execute(insert_string, value_tuple)
+	try:
+		db_cursor.execute(insert_string, value_tuple)
+	except sqlite3.OperationalError: #for now just skip columns that don't exist yet
+		pass
 	print('Insert String: ' + insert_string + '\n')
 	print('Values: ')
 	print(value_tuple)
@@ -422,9 +437,13 @@ def get_settings_from_database(run_id, runtype="nedm", db_connection=None):
 	all_settings = merge_dicts(default_run_settings(runtype), default_srk_settings(runtype))
 	columns_str = ''
 	for i in all_settings.keys():
-		if i == "DefaultPos": columns_str += "InitialPos" + ','
-		elif i == "DefaultVel": columns_str += "InitialVel" + ','
-		elif i == "DefaultMag": columns_str += "InitialMag" + ','
+		if i == "RingRadius": del all_settings[i]#for now
+		elif i == "StorageDiameter": del all_settings[i]#for now
+		elif i == "BMultiFieldStrength": del all_settings[i]
+		elif i == "BMultiOrder": del all_settings[i]
+		elif i == "BMultiSkew": del all_settings[i]
+		elif i == "EMultiFieldStrength": del all_settings[i]
+		elif i == "EMultiOrder": del all_settings[i]
 		else:
 			columns_str += i + ','
 	columns_str = columns_str[:-1]  # remove last comma
@@ -440,10 +459,16 @@ def get_settings_from_database(run_id, runtype="nedm", db_connection=None):
 	run_settings_out = default_run_settings(runtype)
 
 	for i in srk_settings_out:
-		srk_settings_out[i] = all_settings[i]
+		try:
+			srk_settings_out[i] = all_settings[i]
+		except KeyError:
+			continue
 
 	for i in run_settings_out:
-		run_settings_out[i] = all_settings[i]
+		try:
+			run_settings_out[i] = all_settings[i]
+		except KeyError:
+			continue
 
 	return srk_settings_out, run_settings_out
 

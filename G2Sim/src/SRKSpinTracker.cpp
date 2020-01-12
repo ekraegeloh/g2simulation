@@ -75,16 +75,18 @@ void SRKSpinTracker::trackSpin(SRKODEState& theState, double* theField, double t
 		{
 			integrate_adaptive(controlled_stepper, theEquationOfMotion, theState, theState[9], theState[9] + SRKSpinFloat(timeToTrack), SRKSpinFloat(initialStepSize));
 
-			/*for (unsigned int i = 0; i < 3; ++i)
-			{
-				posDouble[i] = static_cast<double> (theState[i]);
-			}
+			//for (unsigned int i = 0; i < 3; ++i)
+			//{
+			//	posDouble[i] = static_cast<double> (theState[i]);
+			//}
+			posDouble[0] = sqrt(static_cast<double> (theState[0]) * static_cast<double> (theState[0]) + static_cast<double> (theState[2]) * static_cast<double> (theState[2])) - 7.112;
+			posDouble[1] = static_cast<double> (theState[1]);
+			posDouble[2] = atan2(static_cast<double> (theState[2]),static_cast<double> (theState[0])); //make this into little function? need more often?
 			theGlobalField->getFieldValue(posDouble, fieldDouble);
 			for (unsigned int i = 0; i < 6; ++i)
 			{
 				theField[i] = fieldDouble[i];
 			}
-			//std::cout << "B total z outside:"<< theField[2] << std::endl;*/
 		}
 	}
 	theState[9] += timeToTrack;
@@ -96,7 +98,7 @@ void SRKSpinTracker::trackSpin(SRKODEState& theState, double* theField, double t
 
 }
 
-/*void SRKSpinTracker::trackSpinAltA(SRKODEState& theState, double timeToTrack, std::vector<SRKODEState>* stepRecord, std::vector<double>* stepTimes)
+void SRKSpinTracker::trackSpinAltA(SRKODEState& theState, double timeToTrack, std::vector<SRKODEState>* stepRecord, std::vector<double>* stepTimes)
 {
 	SRKSpinFloat timeToTrackConv(timeToTrack);
 	error_stepper_type theStepper;
@@ -178,4 +180,4 @@ void SRKSpinTracker::trackSpin(SRKODEState& theState, double* theField, double t
 
 	}
 
-}*/
+}

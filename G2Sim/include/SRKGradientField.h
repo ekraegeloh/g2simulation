@@ -17,6 +17,6 @@ class SRKGradientField: public SRKField
 public:
 	SRKGradientField(SRKFieldSettings inpFS);
 	~SRKGradientField(){}
-	void addFieldValue(const double globalPoint[4], double fieldValue[9]);
+	void addFieldValue(const double localPoint[3], double fieldValue[9]);
 };
 #endif

@@ -7,6 +7,8 @@ import srkglobal
 import srkmisc
 
 default_params = ["posX", "posY", "posZ", "velX", "velY", "velZ", "MX", "MY", "MZ", "magM", "projection"]#, "Bx", "By", "Bz"]
+B_list = ["Bx", "By", "Bz", "magB"]
+E_list = ["Ex", "Ey", "Ez", "magE"]
 
 def make_tree_to_array(run_id, query_list=default_params):
 	"""Makes the step_tree of result files into a numpy array"""
@@ -19,10 +21,10 @@ def make_tree_to_array(run_id, query_list=default_params):
 		return
 	else:
 		root_file = r.TFile(results_path, "READ")
-		step_tree = r.gDirectory.Get('stepTree')
+		hit_tree = r.gDirectory.Get('hitTree')
 #		r.gROOT.cd()
 		
-		return_arr = np.empty((len(query_list), step_tree.GetEntries()+2))
+		return_arr = np.empty((len(query_list), hit_tree.GetEntries()))
 #		tree_dict = {
 #			"posX":step_tree.pos.x(),
 #			"posZ":step_tree.pos.z(),
@@ -31,59 +33,54 @@ def make_tree_to_array(run_id, query_list=default_params):
 #			"phi":step_tree.phi,
 #			"theta":step_tree.theta()
 #		}
-		for i in range(step_tree.GetEntries()):
-			step_tree.GetEntry(i)
-			return_arr[0,i+1] = step_tree.pos.x()
-			return_arr[1,i+1] = step_tree.pos.y()
-			return_arr[2,i+1] = step_tree.pos.z()
-			return_arr[3,i+1] = step_tree.vel.x()
-			return_arr[4,i+1] = step_tree.vel.y()
-			return_arr[5,i+1] = step_tree.vel.z()
-			return_arr[6,i+1] = step_tree.M.x()
-			return_arr[7,i+1] = step_tree.M.y()
-			return_arr[8,i+1] = step_tree.M.z()
-			return_arr[9,i+1] = step_tree.magM
-			return_arr[10,i+1] = step_tree.projection
-			#return_arr[6,i+1] = step_tree.BFieldStrenth.x()
-			#return_arr[7,i+1] = step_tree.BFieldStrenth.y()
-			#return_arr[8,i+1] = step_tree.BFieldStrenth.z()
+		for i in range(hit_tree.GetEntries()):
+			hit_tree.GetEntry(i)
+			return_arr[0,i] = hit_tree.pos.x()
+			return_arr[1,i] = hit_tree.pos.y()
+			return_arr[2,i] = hit_tree.pos.z()
+			return_arr[3,i] = hit_tree.vel.x()
+			return_arr[4,i] = hit_tree.vel.y()
+			return_arr[5,i] = hit_tree.vel.z()
+			return_arr[6,i] = hit_tree.M.x()
+			return_arr[7,i] = hit_tree.M.y()
+			return_arr[8,i] = hit_tree.M.z()
+			return_arr[9,i] = hit_tree.magM
+			return_arr[10,i] = hit_tree.projection
+
+		try:
+			B_arr = np.empty((len(B_list), hit_tree.GetEntries()))
+			for j in range(hit_tree.GetEntries()):
+				B_arr[0,j] = hit_tree.BField.x()
+				B_arr[1,j] = hit_tree.BField.y()
+				B_arr[2,j] = hit_tree.BField.z()
+				B_arr[3,j] = hit_tree.BFieldStrength
+		except:
+			print "B field data was not recorded"
+		else:
+			return_arr = np.vstack((return_arr, B_arr))
+			
+		try:
+			E_arr = np.empty((len(E_list), hit_tree.GetEntries()))
+			for j in range(hit_tree.GetEntries()):
+				E_arr[0,j] = hit_tree.EField.x()
+				E_arr[1,j] = hit_tree.EField.y()
+				E_arr[2,j] = hit_tree.EField.z()
+				E_arr[3,j] = hit_tree.EFieldStrength
+		except:
+			print "E field data was not recorded"
+		else:
+			return_arr = np.vstack((return_arr, E_arr))
 #			for j in range(len(query_list)):
 #				return_arr[j,i]=tree_dict[query_list[j]]
-		
-		hit_tree = r.gDirectory.Get('hitTree')
-		hit_tree.GetEntry(0)
-		
-		return_arr[0,0] = hit_tree.pos0.x()
-		return_arr[1,0] = hit_tree.pos0.y()
-		return_arr[2,0] = hit_tree.pos0.z()
-		return_arr[3,0] = hit_tree.vel0.x()
-		return_arr[4,0] = hit_tree.vel0.y()
-		return_arr[5,0] = hit_tree.vel0.z()
-		return_arr[6,0] = hit_tree.M0.x()
-		return_arr[7,0] = hit_tree.M0.y()
-		return_arr[8,0] = hit_tree.M0.z()
-		return_arr[9,0] = hit_tree.magM0
-		return_arr[10,0] = hit_tree.projection0
-		
-		return_arr[0,-1] = hit_tree.pos.x()
-		return_arr[1,-1] = hit_tree.pos.y()
-		return_arr[2,-1] = hit_tree.pos.z()
-		return_arr[3,-1] = hit_tree.vel.x()
-		return_arr[4,-1] = hit_tree.vel.y()
-		return_arr[5,-1] = hit_tree.vel.z()
-		return_arr[6,-1] = hit_tree.M.x()
-		return_arr[7,-1] = hit_tree.M.y()
-		return_arr[8,-1] = hit_tree.M.z()
-		return_arr[9,-1] = hit_tree.magM
-		return_arr[10,-1] = hit_tree.projection
 		
 		root_file.Close()
 		return return_arr
 		
 def make_timeline(run_id):
-	srk_settings, run_settings = srkdata.get_settings_from_database(run_id, "g2full")
+	srk_settings, run_settings = srkdata.get_settings_from_database(run_id, "g2")
 	no = srk_settings['TimeLimit']/srk_settings['PeriodicStopTime'] + 1
 	time_arr = np.linspace(0, srk_settings['TimeLimit'], no)
+	#instead use time from root file?
 	return time_arr
 	
 def delta_phi(arr, baseline, absolute=False):

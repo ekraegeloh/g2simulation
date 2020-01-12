@@ -1,21 +1,29 @@
 src/SRKDipoleField.d: ../src/SRKDipoleField.cpp \
  /home/work/Simulation/G2/G2Sim/include/SRKDipoleField.h \
+ /opt/root6/include/TVector3.h /opt/root6/include/TError.h \
+ /opt/root6/include/Rtypes.h /opt/root6/include/RtypesCore.h \
+ /opt/root6/include/RConfig.h /opt/root6/include/RVersion.h \
+ /opt/root6/include/DllImport.h /opt/root6/include/snprintf.h \
+ /opt/root6/include/strlcpy.h /opt/root6/include/TGenericClassInfo.h \
+ /opt/root6/include/TSchemaHelper.h /opt/root6/include/TIsAProxy.h \
+ /opt/root6/include/TVirtualIsAProxy.h /opt/root6/include/TVector2.h \
+ /opt/root6/include/TObject.h /opt/root6/include/RConfigure.h \
+ /opt/root6/include/TStorage.h /opt/root6/include/TVersionCheck.h \
+ /opt/root6/include/TMatrix.h /opt/root6/include/TMatrixF.h \
+ /opt/root6/include/TMatrixT.h /opt/root6/include/TMatrixTBase.h \
+ /opt/root6/include/TNamed.h /opt/root6/include/TString.h \
+ /opt/root6/include/TMathBase.h /opt/root6/include/RStringView.h \
+ /opt/root6/include/RWrap_libcpp_string_view.h \
+ /opt/root6/include/libcpp_string_view.h \
+ /opt/root6/include/TMatrixFBasefwd.h \
+ /opt/root6/include/TMatrixDBasefwd.h /opt/root6/include/TVectorFfwd.h \
+ /opt/root6/include/TVectorDfwd.h /opt/root6/include/TMatrixTUtils.h \
+ /opt/root6/include/TMatrixFfwd.h /opt/root6/include/TMatrixFUtils.h \
+ /opt/root6/include/TMatrixFUtilsfwd.h /opt/root6/include/TMath.h \
  /home/work/Simulation/G2/G2Sim/include/SRKField.h \
  /home/work/Simulation/G2/G2Sim/include/SRKROOTField.h \
  /opt/root6/include/TROOT.h /opt/root6/include/TDirectory.h \
- /opt/root6/include/TBuffer.h /opt/root6/include/TObject.h \
- /opt/root6/include/RConfigure.h /opt/root6/include/Rtypes.h \
- /opt/root6/include/RtypesCore.h /opt/root6/include/RConfig.h \
- /opt/root6/include/RVersion.h /opt/root6/include/DllImport.h \
- /opt/root6/include/snprintf.h /opt/root6/include/strlcpy.h \
- /opt/root6/include/TGenericClassInfo.h \
- /opt/root6/include/TSchemaHelper.h /opt/root6/include/TIsAProxy.h \
- /opt/root6/include/TVirtualIsAProxy.h /opt/root6/include/TStorage.h \
- /opt/root6/include/TVersionCheck.h /opt/root6/include/TNamed.h \
- /opt/root6/include/TString.h /opt/root6/include/TMathBase.h \
- /opt/root6/include/RStringView.h \
- /opt/root6/include/RWrap_libcpp_string_view.h \
- /opt/root6/include/libcpp_string_view.h /opt/root6/include/TList.h \
+ /opt/root6/include/TBuffer.h /opt/root6/include/TList.h \
  /opt/root6/include/TSeqCollection.h /opt/root6/include/TCollection.h \
  /opt/root6/include/TIterator.h /opt/root6/include/TVirtualRWMutex.h \
  /opt/root6/include/TVirtualMutex.h /opt/root6/include/TDatime.h \
@@ -27,16 +35,8 @@ src/SRKDipoleField.d: ../src/SRKDipoleField.cpp \
  /opt/root6/include/TArrayC.h /opt/root6/include/TArrayS.h \
  /opt/root6/include/TArrayI.h /opt/root6/include/TArrayF.h \
  /opt/root6/include/Foption.h /opt/root6/include/Fit/FitExecutionPolicy.h \
- /opt/root6/include/TVectorFfwd.h /opt/root6/include/TVectorDfwd.h \
  /opt/root6/include/TFitResultPtr.h /opt/root6/include/TAtt3D.h \
- /opt/root6/include/TH2.h /opt/root6/include/TMatrixFBasefwd.h \
- /opt/root6/include/TMatrixDBasefwd.h /opt/root6/include/TH1.h \
- /opt/root6/include/TVector3.h /opt/root6/include/TError.h \
- /opt/root6/include/TVector2.h /opt/root6/include/TMatrix.h \
- /opt/root6/include/TMatrixF.h /opt/root6/include/TMatrixT.h \
- /opt/root6/include/TMatrixTBase.h /opt/root6/include/TMatrixTUtils.h \
- /opt/root6/include/TMatrixFfwd.h /opt/root6/include/TMatrixFUtils.h \
- /opt/root6/include/TMatrixFUtilsfwd.h /opt/root6/include/TMath.h \
+ /opt/root6/include/TH2.h /opt/root6/include/TH1.h \
  /opt/root6/include/TFile.h /opt/root6/include/TDirectoryFile.h \
  /opt/root6/include/TMap.h /opt/root6/include/THashTable.h \
  /opt/root6/include/TUrl.h /opt/root6/include/ROOT/TRWSpinLock.hxx \
@@ -802,19 +802,9 @@ src/SRKDipoleField.d: ../src/SRKDipoleField.cpp \
 
 /home/work/Simulation/G2/G2Sim/include/SRKDipoleField.h:
 
-/home/work/Simulation/G2/G2Sim/include/SRKField.h:
+/opt/root6/include/TVector3.h:
 
-/home/work/Simulation/G2/G2Sim/include/SRKROOTField.h:
-
-/opt/root6/include/TROOT.h:
-
-/opt/root6/include/TDirectory.h:
-
-/opt/root6/include/TBuffer.h:
-
-/opt/root6/include/TObject.h:
-
-/opt/root6/include/RConfigure.h:
+/opt/root6/include/TError.h:
 
 /opt/root6/include/Rtypes.h:
 
@@ -838,9 +828,23 @@ src/SRKDipoleField.d: ../src/SRKDipoleField.cpp \
 
 /opt/root6/include/TVirtualIsAProxy.h:
 
+/opt/root6/include/TVector2.h:
+
+/opt/root6/include/TObject.h:
+
+/opt/root6/include/RConfigure.h:
+
 /opt/root6/include/TStorage.h:
 
 /opt/root6/include/TVersionCheck.h:
+
+/opt/root6/include/TMatrix.h:
+
+/opt/root6/include/TMatrixF.h:
+
+/opt/root6/include/TMatrixT.h:
+
+/opt/root6/include/TMatrixTBase.h:
 
 /opt/root6/include/TNamed.h:
 
@@ -853,6 +857,34 @@ src/SRKDipoleField.d: ../src/SRKDipoleField.cpp \
 /opt/root6/include/RWrap_libcpp_string_view.h:
 
 /opt/root6/include/libcpp_string_view.h:
+
+/opt/root6/include/TMatrixFBasefwd.h:
+
+/opt/root6/include/TMatrixDBasefwd.h:
+
+/opt/root6/include/TVectorFfwd.h:
+
+/opt/root6/include/TVectorDfwd.h:
+
+/opt/root6/include/TMatrixTUtils.h:
+
+/opt/root6/include/TMatrixFfwd.h:
+
+/opt/root6/include/TMatrixFUtils.h:
+
+/opt/root6/include/TMatrixFUtilsfwd.h:
+
+/opt/root6/include/TMath.h:
+
+/home/work/Simulation/G2/G2Sim/include/SRKField.h:
+
+/home/work/Simulation/G2/G2Sim/include/SRKROOTField.h:
+
+/opt/root6/include/TROOT.h:
+
+/opt/root6/include/TDirectory.h:
+
+/opt/root6/include/TBuffer.h:
 
 /opt/root6/include/TList.h:
 
@@ -900,45 +932,13 @@ src/SRKDipoleField.d: ../src/SRKDipoleField.cpp \
 
 /opt/root6/include/Fit/FitExecutionPolicy.h:
 
-/opt/root6/include/TVectorFfwd.h:
-
-/opt/root6/include/TVectorDfwd.h:
-
 /opt/root6/include/TFitResultPtr.h:
 
 /opt/root6/include/TAtt3D.h:
 
 /opt/root6/include/TH2.h:
 
-/opt/root6/include/TMatrixFBasefwd.h:
-
-/opt/root6/include/TMatrixDBasefwd.h:
-
 /opt/root6/include/TH1.h:
-
-/opt/root6/include/TVector3.h:
-
-/opt/root6/include/TError.h:
-
-/opt/root6/include/TVector2.h:
-
-/opt/root6/include/TMatrix.h:
-
-/opt/root6/include/TMatrixF.h:
-
-/opt/root6/include/TMatrixT.h:
-
-/opt/root6/include/TMatrixTBase.h:
-
-/opt/root6/include/TMatrixTUtils.h:
-
-/opt/root6/include/TMatrixFfwd.h:
-
-/opt/root6/include/TMatrixFUtils.h:
-
-/opt/root6/include/TMatrixFUtilsfwd.h:
-
-/opt/root6/include/TMath.h:
 
 /opt/root6/include/TFile.h:
 

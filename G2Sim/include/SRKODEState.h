@@ -15,7 +15,8 @@ extern "C"
 {
 #include <quadmath.h>
 }
-typedef boost::multiprecision::float128 SRKSpinFloat;
+//typedef boost::multiprecision::float128 SRKSpinFloat;
+typedef double SRKSpinFloat;
 
 
 ///Higher floating point option

@@ -191,71 +191,58 @@ TVector3 SRKMacroManager::stoTVector3(const string inp)
 
 }
 
+vector<double> SRKMacroManager::stoVector(const string inp)
+{
+	istringstream inp_stream(inp);
+	vector<double> data(istream_iterator<double>(inp_stream),{});
+	return data;
+}
+
 void SRKMacroManager::defineCommands()
 {
-	commandMap["setRecordAllSteps"] = [&](string inp){	theManager->setRecordPeriodicSteps(stobool(inp));}; //Depricated
 	commandMap["setRecordPeriodicSteps"] = [&](string inp){	theManager->setRecordPeriodicSteps(stobool(inp));};
 	commandMap["setUseAltStepping"] = [&](string inp){	theManager->setUseAltStepping(stobool(inp));};
-	commandMap["setUseDynamicTracking"] = [&](string inp){	theManager->setUseDynamicTracking(stobool(inp));};
-	commandMap["setParallelFields"] = [&](string inp){	theManager->setParallelFields(stobool(inp));};
-	commandMap["setUse2D"] = [&](string inp){	theManager->getSRKMotionTracker()->setUse2D(stobool(inp));};
 	commandMap["setConstStepper"] = [&](string inp){	theManager->getSRKSpinTracker()->setConstStepper(stobool(inp));};
 	commandMap["setManualTracking"] = [&](string inp){	theManager->getSRKMotionTracker()->setManualTracking(stobool(inp));};
 	commandMap["setGyromagneticRatio"] = [&](string inp){	theManager->getSRKSpinTracker()->setGyromagneticRatio(stod(inp));};
 	commandMap["setMass"] = [&](string inp){	theManager->getSRKMotionTracker()->setMass(stod(inp));};
-	commandMap["setMeanFreePath"] = [&](string inp){	theManager->getSRKMotionTracker()->setMeanFreePath(stod(inp));};
-	commandMap["setTimeLimit"] = [&](string inp){	theManager->getSRKMotionTracker()->setTimeLimit(stod(inp));};
-	commandMap["setDiffuseReflectionProb"] = [&](string inp){	theManager->getSRKMotionTracker()->setDiffuseReflectionProb(stod(inp));};
-	commandMap["setPeriodicStopTime"] = [&](string inp){	theManager->getSRKMotionTracker()->setPeriodicStopTime(stod(inp));};
-	commandMap["setMeanVel"] = [&](string inp){	theManager->getSRKMotionTracker()->setMeanVel(stod(inp));};
-	commandMap["setDepolAtWallProb"] = [&](string inp){	theManager->getSRKMotionTracker()->setDepolAtWallProb(stod(inp));};
-	commandMap["setReflectionLimit"] = [&](string inp){	theManager->getSRKMotionTracker()->setReflectionLimit(stod(inp));};
-	commandMap["setChamberRadius"] = [&](string inp){	theManager->getSRKMotionTracker()->setChamberRadius(stod(inp));};
-	commandMap["setChamberHeight"] = [&](string inp){	theManager->getSRKMotionTracker()->setChamberHeight(stod(inp));};
-	commandMap["setChamberRotation"] = [&](string inp){	double x, y, z; sto3double(inp,x, y, z);theManager->getSRKMotionTracker()->setChamberRotation(x,y,z);};
-	commandMap["setBFieldStrength"] = [&](string inp){	theManager->setBFieldStrength(stod(inp));};
-	commandMap["setEFieldStrength"] = [&](string inp){	theManager->setEFieldStrength(stod(inp));};
-	commandMap["setB0FieldStrength"] = [&](string inp){	theManager->setB0FieldStrength(stod(inp));};
-	commandMap["setE0FieldStrength"] = [&](string inp){	theManager->setE0FieldStrength(stod(inp));};
-	commandMap["setBGradFieldStrength"] = [&](string inp){	theManager->setBGradFieldStrength(stod(inp));};
-	commandMap["setEGradFieldStrength"] = [&](string inp){	theManager->setEGradFieldStrength(stod(inp));};
+	commandMap["setTimeLimit"] = [&](string inp){	theManager->getSRKMotionTracker()->setTimeLimit(stod(inp)); theManager->setTimeLimit(stod(inp));};
+	commandMap["setPeriodicStopTime"] = [&](string inp){	theManager->getSRKMotionTracker()->setPeriodicStopTime(stod(inp)); theManager->setPeriodicStopTime(stod(inp));};
+//	commandMap["setMeanVel"] = [&](string inp){	theManager->getSRKMotionTracker()->setMeanVel(stod(inp));};
+//	commandMap["setChamberRotation"] = [&](string inp){	double x, y, z; sto3double(inp,x, y, z);theManager->getSRKMotionTracker()->setChamberRotation(x,y,z);};
+	commandMap["setRingRadius"] = [&](string inp){ theManager->getSRKMotionTracker()->setRingRadius(stod(inp));};
+	commandMap["setStorageDiameter"] = [&](string inp){ theManager->getSRKMotionTracker()->setStorageDiameter(stod(inp));};
+//	commandMap["setBFieldStrength"] = [&](string inp){	theManager->setBFieldStrength(stod(inp));};
+//	commandMap["setEFieldStrength"] = [&](string inp){	theManager->setEFieldStrength(stod(inp));};
+	commandMap["setB0FieldStrength"] = [&](string inp){	theManager->setB0FieldStrength(stoVector(inp));};
+//	commandMap["setE0FieldStrength"] = [&](string inp){	theManager->setE0FieldStrength(stod(inp));};
+//	commandMap["setBGradFieldStrength"] = [&](string inp){	theManager->setBGradFieldStrength(stod(inp));};
+//	commandMap["setEGradFieldStrength"] = [&](string inp){	theManager->setEGradFieldStrength(stod(inp));};
 	commandMap["setBQuadFieldStrength"] = [&](string inp){  theManager->setBQuadFieldStrength(stod(inp));};
 	commandMap["setEQuadFieldStrength"] = [&](string inp){  theManager->setEQuadFieldStrength(stod(inp));};
-	commandMap["setBQuadFieldAxis"] = [&](string inp){  theManager->setBQuadFieldDirection("axis", stoTVector3(inp));};
-	commandMap["setEQuadFieldAxis"] = [&](string inp){  theManager->setEQuadFieldDirection("axis", stoTVector3(inp));};
-	commandMap["setBQuadFieldDirection"] = [&](string inp){  theManager->setBQuadFieldDirection("direction", stoTVector3(inp));};
-	commandMap["setEQuadFieldDirection"] = [&](string inp){  theManager->setEQuadFieldDirection("direction", stoTVector3(inp));};
-	commandMap["setBSextFieldStrength"] = [&](string inp){  theManager->setBSextFieldStrength(stod(inp));};
-	commandMap["setESextFieldStrength"] = [&](string inp){  theManager->setESextFieldStrength(stod(inp));};
-	commandMap["setBSextFieldAxis"] = [&](string inp){  theManager->setBSextFieldDirection("axis", stoTVector3(inp));};
-	commandMap["setESextFieldAxis"] = [&](string inp){  theManager->setESextFieldDirection("axis", stoTVector3(inp));};
-	commandMap["setBSextFieldDirection"] = [&](string inp){  theManager->setBSextFieldDirection("direction", stoTVector3(inp));};
-	commandMap["setESextFieldDirection"] = [&](string inp){  theManager->setESextFieldDirection("direction", stoTVector3(inp));};
-	commandMap["setDipoleFieldStrength"] = [&](string inp){	theManager->setDipoleFieldStrength(stod(inp));};
-	commandMap["setAdditionalRandomVelZ"] = [&](string inp){theManager->getSRKMotionTracker()->setAdditionalRandomVelZ(stod(inp));};
+	commandMap["setBMultiFieldStrength"] = [&](string inp){  theManager->addBMultiFieldStrength(stoVector(inp));};
+	commandMap["setBMultiOrder"] = [&](string inp){  theManager->addBMultiOrder(stoi(inp));};
+	commandMap["setBMultiSkew"] = [&](string inp){  theManager->addBMultiSkewness(stobool(inp));};
+	commandMap["setEMultiFieldStrength"] = [&](string inp){  theManager->addEMultiFieldStrength(stoVector(inp));};
+	commandMap["setEMultiOrder"] = [&](string inp){  theManager->addEMultiOrder(stoi(inp));};
+	commandMap["setEContinuous"] = [&](string inp){  theManager->setEcontinuous(stobool(inp));};
+	commandMap["setRecordB"] = [&](string inp){  theManager->setRecordB(stobool(inp));};
+	commandMap["setRecordE"] = [&](string inp){  theManager->setRecordE(stobool(inp));};
 	commandMap["setEPSAbs"] = [&](string inp){	theManager->getSRKSpinTracker()->setEPSAbs(stod(inp));};
 	commandMap["setEPSRel"] = [&](string inp){	theManager->getSRKSpinTracker()->setEPSRel(stod(inp));};
 	commandMap["setInitialStepSize"] = [&](string inp){	theManager->getSRKSpinTracker()->setInitialStepSize(stod(inp));};
-	commandMap["setDipolePosition"] = [&](string inp){	theManager->setDipolePosition(stoTVector3(inp));};
-	commandMap["setDipoleDirection"] = [&](string inp){	theManager->setDipoleDirection(stoTVector3(inp));};
-	commandMap["setE0FieldDirection"] = [&](string inp){	theManager->setE0FieldDirection(stoTVector3(inp));};
+//	commandMap["setE0FieldDirection"] = [&](string inp){	theManager->setE0FieldDirection(stoTVector3(inp));};
 	commandMap["setB0FieldDirection"] = [&](string inp){	theManager->setB0FieldDirection(stoTVector3(inp));};
-	commandMap["setPos"] = [&](string inp){	theManager->getSRKMotionTracker()->setDefaultPos(stoTVector3(inp));}; //Depricated
-	commandMap["setDefaultPos"] = [&](string inp){	theManager->getSRKMotionTracker()->setDefaultPos(stoTVector3(inp));};
-	commandMap["setVel"] = [&](string inp){	theManager->getSRKMotionTracker()->setDefaultVel(stoTVector3(inp));}; //Depricated
-	commandMap["setDefaultVel"] = [&](string inp){	theManager->getSRKMotionTracker()->setDefaultVel(stoTVector3(inp));};
-	commandMap["setDefaultMag"] = [&](string inp){	theManager->getSRKSpinTracker()->setInitialMag(stoTVector3(inp));};
+	commandMap["setInitialPos"] = [&](string inp){	theManager->getSRKMotionTracker()->setInitialPos(stoTVector3(inp));};
+	commandMap["setInitialVel"] = [&](string inp){	theManager->getSRKMotionTracker()->setInitialVel(stoTVector3(inp));};
+	commandMap["setInitialMag"] = [&](string inp){	theManager->getSRKSpinTracker()->setInitialMag(stoTVector3(inp));};
 	commandMap["setResultsFilePath"] = [&](string inp){	theManager->setResultsFilePath(inp);};
-	commandMap["setTrackFilePath"] = [&](string inp){	theManager->setTrackFilePath(inp);};
 	commandMap["setRandomSeed"] = [&](string inp){	theManager->setRandomSeed(stoi(inp));};
 	commandMap["setDefaultResultsDir"] = [&](string inp){	theManager->setDefaultResultsDir(inp);};
-	commandMap["setVelProfHistPath"] = [&](string inp){	theManager->getSRKMotionTracker()->setVelProfHistPath(inp);};
+	commandMap["setVelProfHistPath"] = [&](string inp){	theManager->getSRKMotionTracker()->setVelProfHistPath(inp);}; //change to velocity dist of g-2?
 	commandMap["setRunID"] = [&](string inp){	theManager->setRunID(inp);};
-	commandMap["makeTracks"] = [&](string inp){	theManager->makeTracks(stoi(inp));};
 	commandMap["trackSpins"] = [&](string inp) {	theManager->precessSpinsAlongTracks(stoi(inp));};          // Depricated
 	commandMap["precessSpinsAlongTracks"] = [&](string inp){	theManager->precessSpinsAlongTracks(stoi(inp));};
-	commandMap["trackSpinsDeltaOmega"] = [&](string inp)  {	theManager->precessSpinsAlongTracksParAndAnti(stoi(inp));};// Depricated
-	commandMap["precessSpinsAlongTracksParAndAnti"] = [&](string inp){	theManager->precessSpinsAlongTracksParAndAnti(stoi(inp));};
 	commandMap["openMacroFile"] = [&](string inp){	openMacroFile(inp);};
-	commandMap["loadParametersFromResultsFile"] = [&](string inp){	theManager->loadParametersFromResultsFile(inp);};
+//	commandMap["loadParametersFromResultsFile"] = [&](string inp){	theManager->loadParametersFromResultsFile(inp);};
 }

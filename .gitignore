@@ -8,3 +8,5 @@
 /G2Sim/Debug/*.txt
 /G2Sim/Debug/.fuse*
 /G2Out/*
+/G2Ana/SRKAnalysis/*.pyc
+/G2Ana/notebooks/.ipynb_checkpoints

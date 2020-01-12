@@ -34,7 +34,7 @@ public:
 
 	/// GetFieldValue() returns the field value at a given point[].
 	/// field is really field[6]: Bx,By,Bz,Ex,Ey,Ez,Gx,Gy,Gz
-	/// point[] is in global coordinates: x,y,z,t.
+	/// point[] is in local coordinates: x,y,phi.
 ///	template <class floatlike1, class floatlike2>
 ///	void getFieldValue(const floatlike1* point, floatlike2* outField) const;
 	void getFieldValue(const double* point, double* outField) const;
@@ -64,16 +64,22 @@ public:
     inline void setFieldAxis(TVector3 inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].axisDirection=inp;}
     inline void setFieldMoment(TVector3 inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].moment=inp;}
     inline void setFieldScalingValue(double inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].scalingValue=inp;}
+    inline void setFieldScalingValue(std::vector<double> inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].coefficients=inp;}
+    inline void setFieldOrder(int inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].order=inp;}
+    inline void setFieldSkewness(bool inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].skew=inp;}
     inline void setFieldFrequency(double inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].frequency=inp;}
     inline void setFieldSpaceDim(int inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].spaceDim=inp;}
     inline void setFieldFieldDim(int inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].fieldDim=inp;}
     inline void setFieldClass(int inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].fieldClass=static_cast<FieldClass>(inp);}
     inline void setFieldType(int inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].fieldType=static_cast<FieldType>(inp);}
-    inline void setFieldSymmetryX(bool inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].symmetry[0]=inp;}
-    inline void setFieldSymmetryY(bool inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].symmetry[1]=inp;}
-    inline void setFieldSymmetryZ(bool inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].symmetry[2]=inp;}
+//    inline void setFieldSymmetryX(bool inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].symmetry[0]=inp;}
+//    inline void setFieldSymmetryY(bool inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].symmetry[1]=inp;}
+//    inline void setFieldSymmetryZ(bool inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].symmetry[2]=inp;}
     inline void setFieldUseCubicInterpolation(bool inp){if(currentFieldSettingsToModify >= 0) fieldSettingsToLoad[currentFieldSettingsToModify].useCubicInterpolation=inp;}
     inline void setFieldOffset(TVector3 inp){if(currentFieldSettingsToModify >= 0) {fieldSettingsToLoad[currentFieldSettingsToModify].offset=inp;fieldSettingsToLoad[currentFieldSettingsToModify].centerPos+=inp;}}
+
+    bool Econt; //whether electric field is continuous around ring or sectional
+    inline const bool isNotEcont(){return !Econt;}
 
 protected:
 

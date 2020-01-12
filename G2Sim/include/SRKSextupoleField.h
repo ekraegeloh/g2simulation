@@ -17,6 +17,6 @@ class SRKSextupoleField: public SRKField
 public:
 	SRKSextupoleField(SRKFieldSettings inpFS);
 	~SRKSextupoleField(){}
-	void addFieldValue(const double globalPoint[4], double fieldValue[9]);
+	void addFieldValue(const double localPoint[3], double fieldValue[9]);
 };
 #endif

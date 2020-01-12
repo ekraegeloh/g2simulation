@@ -17,13 +17,13 @@ CPP_SRCS += \
 ../src/SRKManager.cpp \
 ../src/SRKMotionState.cpp \
 ../src/SRKMotionTracker.cpp \
+../src/SRKMultipoleField.cpp \
 ../src/SRKODEState.cpp \
 ../src/SRKQuadrupoleField.cpp \
 ../src/SRKROOTField.cpp \
 ../src/SRKSextupoleField.cpp \
 ../src/SRKSpinState.cpp \
-../src/SRKSpinTracker.cpp \
-../src/SRKUniformField.cpp 
+../src/SRKSpinTracker.cpp 
 
 OBJS += \
 ./src/SRKBField.o \
@@ -39,13 +39,13 @@ OBJS += \
 ./src/SRKManager.o \
 ./src/SRKMotionState.o \
 ./src/SRKMotionTracker.o \
+./src/SRKMultipoleField.o \
 ./src/SRKODEState.o \
 ./src/SRKQuadrupoleField.o \
 ./src/SRKROOTField.o \
 ./src/SRKSextupoleField.o \
 ./src/SRKSpinState.o \
-./src/SRKSpinTracker.o \
-./src/SRKUniformField.o 
+./src/SRKSpinTracker.o 
 
 CPP_DEPS += \
 ./src/SRKBField.d \
@@ -61,13 +61,13 @@ CPP_DEPS += \
 ./src/SRKManager.d \
 ./src/SRKMotionState.d \
 ./src/SRKMotionTracker.d \
+./src/SRKMultipoleField.d \
 ./src/SRKODEState.d \
 ./src/SRKQuadrupoleField.d \
 ./src/SRKROOTField.d \
 ./src/SRKSextupoleField.d \
 ./src/SRKSpinState.d \
-./src/SRKSpinTracker.d \
-./src/SRKUniformField.d 
+./src/SRKSpinTracker.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

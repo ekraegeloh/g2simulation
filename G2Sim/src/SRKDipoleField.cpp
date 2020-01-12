@@ -1,25 +1,59 @@
-#include "SRKDipoleField.h"
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+//
+// $Id: G4UniformElectricField.cc,v 1.13 2010-07-14 10:00:36 gcosmo Exp $
+// GEANT4 tag $Name: geant4-09-04-patch-02 $
+//
+// 
+//
+// Class for creation of uniform Electric Field
+//
+// 30.1.97 V.Grichine
+//
+// -------------------------------------------------------------------
 
-using namespace std;
+#include <SRKDipoleField.h>
+
 SRKDipoleField::SRKDipoleField(SRKFieldSettings inpFS) :
 	SRKField(inpFS)
 {
-
+	fieldComponents[0] = scalingFactorWUnits * inpFS.direction.x();
+	fieldComponents[1] = scalingFactorWUnits * inpFS.direction.y();
+	fieldComponents[2] = scalingFactorWUnits * inpFS.direction.z();
 }
 
-void SRKDipoleField::addFieldValue(const double globalPoint[4], double fieldValue[9])
+SRKDipoleField::~SRKDipoleField()
 {
-	const double Point[] = { (globalPoint[0] - fs.centerPos[0]), (globalPoint[1] - fs.centerPos[1]), (globalPoint[2] - fs.centerPos[2]) };
-	const double r = sqrt(Point[0] * Point[0] + Point[1] * Point[1] + Point[2] * Point[2]);
-	const double r3inv = 1. / (r * r * r); //precalc for speed
-	const double r5inv = r3inv / (r * r); //precal for speed
-	const double mdotr = 3. * r5inv * (fs.moment.x() * Point[0] + fs.moment.y() * Point[1] + fs.moment.z() * Point[2]);
-	fieldValue[g4FieldX] += scalingFactorWUnits * (Point[0] * mdotr - fs.moment.x() * r3inv);
-	fieldValue[g4FieldY] += scalingFactorWUnits * (Point[1] * mdotr - fs.moment.y() * r3inv);
-	fieldValue[g4FieldZ] += scalingFactorWUnits * (Point[2] * mdotr - fs.moment.z() * r3inv);
-
-//	cout << "Point: " << Point[0] << "\t" << Point[1] << "\t" << Point[2] << endl;
-//	cout << "Field: " << Bfield[0] << "\t" << Bfield[1] << "\t" << Bfield[2] << endl;
-
 }
 
+// ------------------------------------------------------------------------
+
+void SRKDipoleField::addFieldValue(const double localPoint[3], double fieldValue[9])
+{
+	fieldValue[g4FieldX] += fieldComponents[0];
+	fieldValue[g4FieldY] += fieldComponents[1];
+	fieldValue[g4FieldZ] += fieldComponents[2];
+}

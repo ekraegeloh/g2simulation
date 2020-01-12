@@ -21,7 +21,7 @@ public:
 	SRKInterpolatedField(SRKFieldSettings fs);
 	~SRKInterpolatedField(){}
 
-	void addFieldValue(const double globalPoint[4], double fieldValue[9]);
+	void addFieldValue(const double localPoint[3], double fieldValue[9]);
 
 private:
 	SRKROOTField theROOTField;

@@ -1,6 +1,7 @@
 #include <SRKEquationOfMotion.h>
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 
 using namespace std;
 
@@ -9,7 +10,7 @@ using namespace std;
 SRKEquationOfMotion::SRKEquationOfMotion()
 {
 	theGlobalField=nullptr;
-	gyromagneticRatio = -4.84578839927e7;  //Hg radians/s/T
+	gyromagneticRatio = 0.00116592091;  //a_mu (unitless)
 }
 
 SRKEquationOfMotion::SRKEquationOfMotion(SRKGlobalField* inpGlobalField)
@@ -23,16 +24,44 @@ void SRKEquationOfMotion::operator()(const SRKODEState& x, SRKODEState& dxdt, co
 	SRKEqOfMotion(x,dxdt,t);
 }
 
+bool SRKEquationOfMotion::isQuad(const double phi)
+{
+	if(phi>=M_PI_4 && phi<M_PI/5 + M_PI_4){
+		return false;
+	} else if(phi>=3*M_PI_4 && phi<M_PI/5 + 3*M_PI_4){
+		return false;
+	} else if(phi>=-M_PI_4 && phi<M_PI/5 - M_PI_4){
+		return false;
+	} else if(phi>=-3*M_PI_4 && phi<M_PI/5 - 3*M_PI_4){
+		return false;
+	} else{
+		return true;
+	}
+}
+
 void SRKEquationOfMotion::SRKEqOfMotion(const SRKODEState& x, SRKODEState& dxdt, const SRKSpinFloat /* t */)
 {
 	posX = static_cast<double> (x[0]);
 	posZ = static_cast<double> (x[2]);
-	localPos[0] = sqrt(posX*posX + posZ*posZ) - 7.112;
+	localPos[0] = sqrt(posX*posX + posZ*posZ) - 7.112;//ring radius
 	localPos[1] = static_cast<double> (x[1]);
 	localPos[2] = atan2(posZ,posX);
 
 	theGlobalField->getFieldValue(localPos, fieldDouble);
-	for(int i=0;i<9;i++)
+	for(int i=0;i<3;i++)
+	{
+		theField[i]=fieldDouble[i];
+	}
+	if(theGlobalField->isNotEcont() && !isQuad(localPos[2])){    //sectional
+		theField[3] = theField[4] = theField[5] = 0.;
+	}
+	else{
+		for(int i=3;i<6;i++)
+		{
+			theField[i]=fieldDouble[i];
+		}
+	}
+	for(int i=6;i<9;i++)
 	{
 		theField[i]=fieldDouble[i];
 	}
@@ -44,7 +73,8 @@ void SRKEquationOfMotion::SRKEqOfMotion(const SRKODEState& x, SRKODEState& dxdt,
 	#endif
 */
 	const double motionalCoeff = 1. / (299792458. * 299792458.);
-	const double chargeToMassRatio = 1.6021766208e-19 / 1.883531594e-28;
+	const int polarity = 1;
+	const double chargeToMassRatio = polarity*1.6021766208e-19 / 1.883531594e-28;
 	SRKSpinFloat gamma = 1/sqrt(1 - motionalCoeff*(x[3]*x[3] + x[4]*x[4] + x[5]*x[5]) );
 
 	#ifdef SRKEQOFMOTIONDEBUG

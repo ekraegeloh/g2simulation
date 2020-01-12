@@ -40,6 +40,7 @@ private:
 	bool stobool(const std::string inp);  /// Converts a string to a bool (several options given)
 	void sto3double(const std::string inp, double& x, double& y, double& z); /// Converts a string containing three numbers separated by whitespace to doubles
 	TVector3 stoTVector3(const std::string inp);  /// Converts a string containing three numbers separated by whitespace to a TVector3
+	std::vector<double> stoVector(const std::string inp); /// Converts a string of undefined length to a vector
 
 	std::list<TString> commandStringList;  //List of command strings
 	std::list<TString> commandValueStringList; //List of command values

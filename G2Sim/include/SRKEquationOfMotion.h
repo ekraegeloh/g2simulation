@@ -29,15 +29,16 @@ public:
 	inline double getGyromagneticRatio(){ return static_cast<double> (gyromagneticRatio); }
 
 protected:
+	bool isQuad(const double phi);
 	void SRKEqOfMotion(const SRKODEState& x, SRKODEState& dxdt, const SRKSpinFloat /* t */);
 	SRKGlobalField* theGlobalField;
 
 	//For retrieval of field
 	double fieldDouble[9];
 	//double posDouble[3];
-	double posX;
-	double posZ;
-	double localPos[3];
+	double posX = 0.;
+	double posZ = 0.;
+	double localPos[3]; //in ring cross section: x, y, angle azimuth
 
 	SRKSpinFloat gyromagneticRatio;
 	SRKSpinFloat theField[9];
